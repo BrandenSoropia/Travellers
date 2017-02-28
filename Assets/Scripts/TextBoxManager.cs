@@ -4,15 +4,19 @@ using UnityEngine;
 using UnityEngine.UI; // Needed to import type "Text"
 
 public class TextBoxManager : MonoBehaviour {
-
-	public GameObject textBox;
-	public Text currentText;
-	public Dictionary<string, string> characters; // Key: Name, TODO Value: ??? 
-	public string currentSpeaker;
-	public TextAsset textFile;
-	public List<string> text;
-	public int currentLine; // Has to be set manually for more freedom (I think...)
-	public int endAtLine;
+	// UI & Game Objects
+	public GameObject textBox; // The panel containing the entire text box
+	public Text speakerNameCurrentText; // Where the speaker's name is displayed
+	public Text dialogueCurrentText; // Where the speaker's text is displayed
+	// Source File
+	public TextAsset textFile; // .txt file
+	// Properties
+	public List<string> text; // List of all the lines in the .txt file without empty space
+	public Dictionary<string, string> characters; // Key: Name, Value: string 
+	public string currentSpeaker; // Name of the current speaker
+	public bool didSpeakerChange; // Flag for when speakers change
+	public int currentLine; // Which line to start reading from
+	public int endAtLine; // Which line number to stop reading
 
 	// Constants
 	private const int BEFORE_COLON_IDX = 0;
@@ -31,7 +35,7 @@ public class TextBoxManager : MonoBehaviour {
 		string[] names = line.Substring(CHARACTER_LIST_MARKER.Length).Split(','); // Remove marker from line and separate names by comma
 
 		Dictionary<string, string> characters = new Dictionary<string, string>(); // Initialize empty dictionary
-		// Populate dictionary with names and default value
+		// Populate dictionary with names and set default value
 		foreach (string name in names) {
 			characters.Add(name.Trim(), "");
 		}
@@ -50,7 +54,13 @@ public class TextBoxManager : MonoBehaviour {
 		return noEmptyLineText;
 	}
 
-	// Use this for initialization
+	/** Set speaker, set flag to true and skip line if line is only speaker's name. */
+	void setSpeakerAndSkipLine (string name) {
+		currentSpeaker = name;
+		didSpeakerChange = true;
+		currentLine += 1;
+	}
+
 	void Start () {
 		if (textFile != null) {
 			text = removeEmptyLinesFromText(textFile.text.Split('\n'));
@@ -63,9 +73,21 @@ public class TextBoxManager : MonoBehaviour {
 	}
 
 	void Update () {
-		currentText.text = text[currentLine];
+		foreach (string name in characters.Keys) { // Set speaker and skip line if line is only speaker's name
+			if (isLineSpeakerNameOnly(name, text[currentLine])) {
+				setSpeakerAndSkipLine(name);
+			}
+		}
 
-		if (Input.GetKeyDown (KeyCode.Return)) { // Move to next line on "Enter" press
+		if (didSpeakerChange) { // Update speaker and reset flag
+			speakerNameCurrentText.text = currentSpeaker;
+			didSpeakerChange = false;
+		}
+
+		dialogueCurrentText.text = text[currentLine];
+
+
+		if (Input.GetKeyDown (KeyCode.Return)) { // Move to next line when "Enter" is pressed
 			currentLine += 1;
 		}
 
