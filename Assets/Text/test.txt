@@ -1,15 +1,35 @@
-Characters: Flores, Henriette
+Narrator:
+colour: 0, 0, 0
+
+Flores:
+colour: 1, 1, 1
+normal: flores.png
+
+Henriette:
+colour: 0.109, 0.4, 0.150
+normal: henriette.png
 ----
 Flores:
-Hello this is a hand typed test line.
+"Hello this is a hand typed test line."
 
 Henriette:
-Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+"Lorem ipsum dolor sit amet, consectetur adipiscing elit."
 
 Flores:
-Donec non lobortis arcu. Etiam eget tincidunt arcu, vel pretium est. Proin a luctus felis, eget euismod augue.
-Donec vestibulum condimentum leo, quis scelerisque nisi dignissim eget. Praesent non lectus massa. Aliquam at enim cursus, tincidunt leo non, interdum elit.
+"Donec non lobortis arcu. Etiam eget tincidunt arcu, vel pretium est. Proin a luctus felis, eget euismod augue."
+
+'Vestibulum condimentum leo, quis scelerisque nisi dignissim eget. Praesent non lectus massa. Aliquam at enim cursus, tincidunt leo non, interdum elit.'
 
 Henriette:
-Nunc commodo volutpat ipsum, faucibus consequat tortor faucibus vitae. Nullam dapibus, odio elementum dictum auctor, augue nisl ultrices augue, et ullamcorper diam lacus non magna. Integer dapibus convallis orci quis egestas. Nullam arcu lectus, tempor a dolor vitae, pharetra imperdiet massa. 
-Quisque dapibus condimentum orci. Fusce pulvinar, arcu et pharetra sodales, odio nisl fermentum ipsum, vel dapibus tortor purus nec dolor. Fusce eu libero sapien. Proin mollis pharetra orci, eget dapibus libero ullamcorper ac. Morbi sed ultrices orci. Interdum et malesuada fames ac ante ipsum primis in faucibus. Nulla euismod ultrices vulputate. Aliquam justo elit, mattis id turpis dignissim, finibus venenatis nisi.
+"Nunc commodo volutpat ipsum, faucibus consequat tortor faucibus vitae. Nullam dapibus, odio elementum dictum auctor, augue nisl ultrices augue, et ullamcorper diam lacus non magna."
+
+"Integer dapibus convallis orci quis egestas. Nullam arcu lectus, tempor a dolor vitae, pharetra imperdiet massa."
+
+Narrator:
+Quisque dapibus condimentum orci. Fusce pulvinar, arcu et pharetra sodales, odio nisl fermentum ipsum, vel dapibus tortor purus nec dolor. Fusce eu libero sapien. 
+
+Proin mollis pharetra orci, eget dapibus libero ullamcorper ac. Morbi sed ultrices orci.
+
+I'm dying nigga... 
+
+"This'll be fun!" - R.I.P Branden (1995 - 2017)
