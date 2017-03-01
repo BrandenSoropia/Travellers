@@ -1,0 +1,22 @@
+﻿Narrator:
+colour: 0, 0, 0
+
+Flores:
+colour: 1, 1, 1
+normal: flores.png
+
+Clem:
+colour: 0.127, 0.6, 0.42
+normal: clem.png
+----
+Clem:
+"Choice 2."
+
+Narrator:
+Integer dapibus convallis orci quis egestas. Nullam arcu lectus, tempor a dolor vitae, pharetra imperdiet massa.
+
+Flores:
+"Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+
+Next:
+	finale.txt

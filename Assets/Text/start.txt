@@ -33,3 +33,7 @@ Proin mollis pharetra orci, eget dapibus libero ullamcorper ac. Morbi sed ultric
 I'm dying nigga... 
 
 "This'll be fun!" - R.I.P Branden (1995 - 2017)
+
+Choose:
+	"Choice 1": choice1.txt
+	Choice 2: choice2.txt

@@ -47,7 +47,10 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\TextBoxManager.cs" />
-     <None Include="Assets\Text\test.txt" />
+     <None Include="Assets\Text\choice2.txt" />
+     <None Include="Assets\Text\start.txt" />
+     <None Include="Assets\Text\choice1.txt" />
+     <None Include="Assets\Text\finale.txt" />
  <Reference Include="UnityEngine.Analytics">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/UnityAnalytics/UnityEngine.Analytics.dll</HintPath>
  </Reference>

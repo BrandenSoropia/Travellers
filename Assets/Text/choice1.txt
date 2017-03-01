@@ -1,0 +1,23 @@
+﻿Narrator:
+colour: 0, 0, 0
+
+Flores:
+colour: 1, 1, 1
+normal: flores.png
+
+Van:
+colour: 0.150, 0.4, 0.109
+normal: van.png
+----
+Flores:
+"Choice 1."
+
+Narrator:
+Integer dapibus convallis orci quis egestas. Nullam arcu lectus, tempor a dolor vitae, pharetra imperdiet massa.
+
+Van:
+"Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+
+Choose: 
+	"Finale.": finale.txt
+	Start: start.txt

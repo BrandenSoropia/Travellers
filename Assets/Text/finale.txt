@@ -1,0 +1,5 @@
+﻿Narrator:
+colour: 0, 0, 0
+----
+Narrator:
+Fin.
