@@ -8,9 +8,12 @@ using UnityEngine.UI;
 public class TextBoxManager : MonoBehaviour
 {
 	// UI & Game Objects
-	public GameObject speakerTextBox; // The panel containing the speaker's text box
+	public GameObject choiceContainer; // Where choices are held
+	public GameObject dialogueContainer; // The panel containing the speaker's text box
+	public GameObject buttonPrefab; // Used to generate buttons
 	public Text speakerNameCurrentText; // Where the speaker's name is displayed
 	public Text dialogueCurrentText;// Where the speaker's text is displayed
+
 	// Source File
 	public TextAsset textFile; // .txt file
 
@@ -35,6 +38,13 @@ public class TextBoxManager : MonoBehaviour
 	public float INNER_THOUGHT_TEXT_OPACITY = 0.75F;
 	public float readSpeed = 0.1F; // Print letter speed
 	public int NUM_PADDING_LINES = 2; // Number of lines after endAtLine to find choices or next file
+	public int buttonDialogueBoxPadding; // Padding from bottom of dialog box to bottom of button
+	public int interbuttonPadding; // Padding between buttons
+
+
+	// Constants
+	private const int CHOICE_TEXT = 0;
+	private const int CHOICE_NEXT_FILE = 1;
 
 	/**	Return true if line is just the speaker's name. Otherwise return false. */
 	bool isLineSpeakerNameOnly (string name, string line)
@@ -137,21 +147,50 @@ public class TextBoxManager : MonoBehaviour
 		return -1;
 	}
 
-	/** Return array of choices. */
+	/** Return array of choices with text trimmed of white space. */
 	List<List<string>> extractChoices () {
 		int startOfChoices = endAtLine + NUM_PADDING_LINES;
 		int endOfChoices = text.Count - startOfChoices;
 
-		List<string> choicesLines = text.GetRange (startOfChoices, endOfChoices); // Get only choices from text 
+		List<string> choiceLines = text.GetRange (startOfChoices, endOfChoices); // Get only choices from text 
 		List<List<string>> choices = new List<List<string>>();
 
-		foreach (string choiceLine in choicesLines) { // Extract choice text and next file and populate choices
-			List<string> choice = new List<string>(choiceLine.Split (':')); // Convert string array to list
+		foreach (string choiceLine in choiceLines) { // Extract choice text and next file and populate choices
+			string[] choiceProperties = choiceLine.Split (':');
+			List<string> choice = new List<string>();
+
+			foreach (string property in choiceProperties) { // Trim white space
+				choice.Add (property.Trim ());
+			}
 
 			choices.Add (choice);
 		}
 
 		return choices;
+	}
+
+	/** Create buttons and attach onClick function to them. */
+	void createButtons () {
+		for (int choiceNum = 0; choiceNum < choices.Count; choiceNum++) {
+			GameObject buttonGO = Instantiate (buttonPrefab, choiceContainer.transform, false);
+			buttonGO.name = "Choice" + (choiceNum + 1).ToString (); // Name GameoObject "Choice #"
+
+			// Configure button text and onClick
+			var buttonTextComponent = buttonGO.GetComponentInChildren<Text> ();
+			buttonTextComponent.text = choices [choiceNum] [CHOICE_TEXT]; // Set button text to choice text
+
+			var buttonComponent = buttonGO.GetComponent<Button> ();
+			string sceneFileName = choices [choiceNum] [CHOICE_NEXT_FILE];
+
+			buttonComponent.onClick.AddListener (() => setupScene(sceneFileName));
+
+			buttonGO.transform.Translate (Vector3.up * ((interbuttonPadding * choiceNum) + buttonDialogueBoxPadding)); // Stack choices in reverse on top of each other
+		}
+	}
+
+	/** TODO Setup scene characters, dialogue and if they exist, choices as well. */
+	void setupScene (string fileName) {
+		Debug.Log (fileName);
 	}
 
 	// Remove empty lines and initialize character dictionary
@@ -167,9 +206,11 @@ public class TextBoxManager : MonoBehaviour
 			endAtLine = findLineNumBeforeChoiceOrNextFileMarker();
 		}
 
-		// TODO create buttons for each one
-		// Extract choices
+		// TODO: Handle txt files with choices or next scene
+		// Extract choices and create buttons for each one and hide them
+		choiceContainer.SetActive (false);
 		choices = extractChoices ();
+		createButtons ();
 	}
 
 	void Update ()
@@ -203,9 +244,13 @@ public class TextBoxManager : MonoBehaviour
 			dialogueCurrentText.text = trimAndSetColourOfLine (text [currentLine]);
 		}
 
-		if (currentLine > endAtLine) {
-			speakerTextBox.SetActive (false); // Inactivate text box
-			// TODO Display choices when reached end of file
+		if (currentLine > endAtLine) { // Hide dialogue box and display choices if they exists
+			dialogueContainer.SetActive (false);
+			if (choices != null) {
+				choiceContainer.SetActive (true);
+			} else {
+				// TODO setup next scene
+			}
 		}
 	}
 }
